@@ -1,13 +1,6 @@
 #include "guess_the_number.hpp"
 #include <iostream>
-#include <random>
-
-int rand(int min, int max)
-{
-    static std::default_random_engine  generator{std::random_device{}()};
-    std::uniform_int_distribution<int> distribution{min, max};
-    return distribution(generator);
-}
+#include "Commons/random.hpp"
 
 int get_int_from_user()
 {
@@ -22,7 +15,7 @@ int get_int_from_user()
 
 void play_guess_the_number()
 {
-    int  mystery_number = rand(0, 100);
+    int  mystery_number = rand<int>(0, 100);
     bool found          = false;
     while (!found) {
         int user_number = get_int_from_user();

@@ -1,13 +1,16 @@
 #pragma once
 #include <iostream>
 
-int get_int_from_user()
+template<typename T>
+T get_input_from_user()
 {
-    int user_int;
-    while (std::cout << "Enter a number: " && !(std::cin >> user_int)) {
+    T user_input;
+    std::cout << "Enter your input: ";
+    std::cin >> user_input;
+    while (std::cin.fail()) {
         std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Please enter a valid number" << std::endl;
+        std::cin.sync();
+        std::cout << "Please enter a valid input. " << std::endl;
     }
-    return user_int;
+    return user_input;
 }

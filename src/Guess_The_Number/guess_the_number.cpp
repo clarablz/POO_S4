@@ -8,7 +8,7 @@ void play_guess_the_number()
     int  mystery_number = rand<int>(0, 100);
     bool found          = false;
     while (!found) {
-        int user_number = get_int_from_user();
+        int user_number = get_input_from_user<int>();
         if (user_number == mystery_number) {
             found = true;
         }

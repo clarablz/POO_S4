@@ -1,29 +1,89 @@
-# Simple-Cpp-Setup
+# PROGRAMMATION OBJET 2 💻
+[Link to Jules' lessons](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/) 
 
-Welcome to this minimalist C++ project!
+## LEVEL 1 :sun_with_face:
 
-## If you use the Dev Container
+#### :heavy_check_mark: [Install a compiler](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/install-a-compiler/)
 
-If you install [ms-vscode-remote.remote-containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and [Docker](https://www.docker.com/products/docker-desktop), you will be able to run your code inside a Linux container (kind of like a virtual machine, but faster). Also, you will get static analyzers, code formatters and useful extensions installed out of the box! It is a great option to get started with C++ quickly.
+#### :heavy_check_mark: [Use an IDE](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/ide/)
 
-(Unfortunately, if you want to do GUI applications they don't work well from within a container and you might have to do a proper setup on your own desktop instead. But for simple command-line applications this works amazingly well!)
+#### :heavy_check_mark: [Use Git](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/git/) 
 
-NB: the container might take a while to build the first time.
+#### :heavy_check_mark: [Use a debugger](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/debugger/) 
 
-## If you don't use the Dev Container
+#### :heavy_check_mark: [Use a formatting tool](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/formatting-tool/) 
 
-### Compiling
+#### :heavy_check_mark: [Use static analysers](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/static-analysers/) 
 
-You need to install [CMake](https://cmake.org/download/).
+#### :heavy_check_mark: [Naming](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/naming/) 
 
-To use CMake I recommend this VS Code extension : [ms-vscode.cmake-tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools). You will need to setup the extension with a compiler. Here is [the tutorial](https://code.visualstudio.com/docs/cpp/cmake-linux). It is based on Linux but at the bottom of the page you will find the explanations to adapt it for [Windows](https://code.visualstudio.com/docs/cpp/config-msvc) and [Mac](https://code.visualstudio.com/docs/cpp/config-clang-mac).
+#### :heavy_check_mark: [Use static analysers Stack vs Heap](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/stack-vs-heap/) 
 
-Alternatively you can just create a *build* folder at the root of this project, open a terminal and run `cmake ..`; chances are it will detect what compiler you have installed and generate the appropriate Makefile / Visual Studio solution / Xcode project.
+#### :heavy_check_mark: [Consistency in style](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/consistency-in-style/) 
 
-### Auto-formatting
+---
 
-[Check this out](https://julesfouchy.github.io//Learn--Clean-Code-With-Cpp/lessons/formatting-tool) to learn why you would want to use a code formatter and how to do it.
+### Usefull notes
 
-### Static analysis
+**Great shortcuts :**
+- **Rename :** <kbd>F2</kbd> (better than "find and replace")
+- **Search for a method in all the files :** <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>O</kbd> 
+- **Go to file :** <kbd>CTRL</kbd> + <kbd>P</kbd> 
+- **Switch .hpp/.cpp :** <kbd>ALT</kbd> + <kbd>O</kbd>  :heart_eyes:
+- **Search a word in the whole projet :**  <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>F</kbd>
+- **build :** <kbd>F7</kbd>
+- **run :** <kbd>CTRL</kbd> + <kbd>F5</kbd>
 
-[Check this out](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/static-analysis-and-sanitizers) to learn why you would want to use static analysis and how to do it.
+---
+
+## LEVEL 2 :sun_with_face: :sun_with_face:
+
+#### :heavy_check_mark: [Make it work, then make it good](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/make-it-work-then-make-it-good/) 
+
+#### :heavy_check_mark: [Prefer free functions](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/prefer-free-functions/) 
+
+#### :heavy_check_mark: [Design cohesive classes](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/design-cohesive-classes/)
+
+#### :heavy_check_mark: [Use structs to group data](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/use-structs-to-group-data/) 
+
+#### :heavy_check_mark: [Write small functions](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/write-small-functions/) 
+
+#### :clock1: [DRY : Don't Repeat Yourself](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/dry-dont-repeat-yourself/) 
+
+#### :clock1: [Enums](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/enums/) 
+
+#### :clock1: [Split problems into small pieces](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/split-problems-in-small-pieces/) 
+
+#### :clock1: [Composition and inheritance](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/composition-over-inheritance/) 
+
+---
+
+### Usefull notes
+- Prefer free fonctions over methods when possible ; better for testing or reusing
+- No private methods
+- struct are better than classes if we have no invariants to enforce
+
+---
+## Assignments
+
+| Emoji               | Status          |
+| :-----------------: |:---------------:|
+| :white_check_mark:  | Done            |
+| :keyboard:          | Currently doing |
+| :x:                 | Not started     |
+
+#### :white_check_mark: Guess the number
+
+#### :keyboard: Hangman
+
+#### :x: Adding a menu
+
+#### :x: Noughts and Crosses
+
+#### :x: Connect 4
+
+#### :x: Adding tests
+
+#### :x: An AI for Hangman
+
+#### :x: Going further

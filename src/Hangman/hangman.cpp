@@ -1,7 +1,7 @@
 #include "hangman.hpp"
 #include <array>
 #include <iostream>
-#include "../Commons/random.hpp"
+#include "Commons/random.hpp"
 
 const char* pick_a_random_word()
 {

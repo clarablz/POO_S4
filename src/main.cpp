@@ -8,6 +8,6 @@
 int main()
 {
     //play_guess_the_number();
-    //std::cout << pick_a_random_word() << std::endl;
-    char letter = get_input_from_user<char>();
+    std::cout << pick_a_random_word() << std::endl;
+    //get_input_from_user<char>();
 }

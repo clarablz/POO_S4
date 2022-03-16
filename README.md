@@ -48,13 +48,13 @@
 
 #### :heavy_check_mark: [Write small functions](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/write-small-functions/) 
 
-#### :clock1: [DRY : Don't Repeat Yourself](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/dry-dont-repeat-yourself/) 
+#### :heavy_check_mark: [DRY : Don't Repeat Yourself](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/dry-dont-repeat-yourself/) 
 
-#### :clock1: [Enums](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/enums/) 
+#### :heavy_check_mark: [Enums](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/enums/) 
 
-#### :clock1: [Split problems into small pieces](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/split-problems-in-small-pieces/) 
+#### :heavy_check_mark: [Split problems into small pieces](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/split-problems-in-small-pieces/) 
 
-#### :clock1: [Composition and inheritance](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/composition-over-inheritance/) 
+#### :heavy_check_mark: [Composition and inheritance](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/composition-over-inheritance/) 
 
 ---
 

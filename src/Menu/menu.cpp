@@ -1,7 +1,4 @@
 #include "menu.hpp"
-#include "../Commons/get_input_from_user.hpp"
-#include "../Guess_The_Number/guess_the_number.hpp"
-#include "../Hangman/hangman.hpp"
 
 void show_menu()
 {

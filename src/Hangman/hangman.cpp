@@ -19,6 +19,7 @@ const std::string pick_a_random_word()
 
 void play_hangman()
 {
+    std::cout << "-----------HANGMAN-----------" << std::endl;
     Player            player(10);
     std::vector<int>  positions;
     const std::string mystery_word = pick_a_random_word();
@@ -37,12 +38,7 @@ void play_hangman()
             player.decrease_life();
         }
     }
-    if (has_won(mystery_word, progress_word)) {
-        std::cout << "You won! The word was indeed '" << mystery_word << "'." << std::endl;
-    }
-    else {
-        std::cout << "You failed...";
-    }
+    show_end_message(mystery_word, progress_word);
 }
 
 int Player::get_number_of_lives() const
@@ -100,4 +96,14 @@ void add_letter(std::string& progress_word, std::string input_letter, std::vecto
 bool has_won(std::string word_to_find, std::string progress_word)
 {
     return (word_to_find == progress_word);
+}
+
+void show_end_message(std::string mystery_word, std::string progress_word)
+{
+    if (has_won(mystery_word, progress_word)) {
+        std::cout << "You won! The word was indeed '" << mystery_word << "'." << std::endl;
+    }
+    else {
+        std::cout << "You failed...";
+    }
 }

@@ -5,6 +5,7 @@
 
 void play_guess_the_number()
 {
+    std::cout << "-----------GUESS THE NUMBER-----------" << std::endl;
     int  mystery_number = rand<int>(0, 100);
     bool is_found       = false;
     while (!is_found) {

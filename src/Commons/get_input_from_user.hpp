@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 template<typename T>
-T get_input_from_user()
+T get_input_from_user(std::string display_message)
 {
     T user_input;
     while (true) {
-        std::cout << "Enter your input: ";
+        std::cout << display_message;
         if (std::cin >> user_input) {
             break;
         }

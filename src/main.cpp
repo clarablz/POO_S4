@@ -2,6 +2,7 @@
 #include "./Commons/get_input_from_user.hpp"
 #include "Guess_The_Number/guess_the_number.hpp"
 #include "Hangman/hangman.hpp"
+#include "Noughts_and_Crosses/noughts_and_crosses.hpp"
 
 void show_menu()
 {
@@ -17,7 +18,7 @@ int main()
 
     while (!quit) {
         show_menu();
-        char command = get_input_from_user<char>();
+        char command = get_input_from_user<char>("Select your game : ");
         switch (command) {
         case '1':
             play_guess_the_number();

@@ -5,6 +5,31 @@
 #include <vector>
 #include "Commons/get_input_from_user.hpp"
 #include "Commons/random.hpp"
+
+void play_hangman()
+{
+    std::cout << "-----------HANGMAN-----------" << std::endl;
+    Player            player(10);
+    std::vector<int>  letter_positions;
+    const std::string mystery_word = pick_a_random_word();
+    std::string       progress_word(mystery_word.size(), '_');
+    std::string       word_in_progress;
+
+    while (player.is_alive() && !has_won(mystery_word, progress_word)) {
+        player.display_life();
+        display_progress_word(progress_word);
+        std::string input_letter = get_input_from_user<std::string>("Enter a letter : ");
+        if (is_letter_in_word(input_letter, mystery_word, letter_positions)) {
+            add_letter(progress_word, input_letter, letter_positions);
+            letter_positions.clear();
+        }
+        else {
+            player.decrease_life();
+        }
+    }
+    show_end_message(mystery_word, progress_word);
+}
+
 const std::string pick_a_random_word()
 {
     const std::array<std::string, 4> words = {
@@ -15,30 +40,6 @@ const std::string pick_a_random_word()
     };
 
     return words[rand<size_t>(0, words.size() - 1)];
-}
-
-void play_hangman()
-{
-    std::cout << "-----------HANGMAN-----------" << std::endl;
-    Player            player(10);
-    std::vector<int>  positions;
-    const std::string mystery_word = pick_a_random_word();
-    std::string       progress_word(mystery_word.size(), '_');
-    std::string       word_in_progress;
-
-    while (player.is_alive() && !has_won(mystery_word, progress_word)) {
-        player.display_life();
-        display_progress_word(progress_word);
-        std::string input_letter = get_input_from_user<std::string>();
-        if (is_letter_in_word(input_letter, mystery_word, positions)) {
-            add_letter(progress_word, input_letter, positions);
-            positions.clear();
-        }
-        else {
-            player.decrease_life();
-        }
-    }
-    show_end_message(mystery_word, progress_word);
 }
 
 int Player::get_number_of_lives() const
@@ -66,12 +67,12 @@ void Player::display_life() const
     std::cout << "You have " << _number_of_lives << " lives left. " << std::endl;
 }
 
-bool is_letter_in_word(std::string letter, std::string mystery_word, std::vector<int>& positions)
+bool is_letter_in_word(std::string letter, std::string mystery_word, std::vector<int>& letter_positions)
 {
     bool is_letter_found = false;
     for (unsigned int i = 0; i < mystery_word.size(); i++) {
         if (mystery_word[i] == letter[0]) {
-            positions.push_back(i);
+            letter_positions.push_back(i);
             is_letter_found = true;
         }
     }
@@ -86,9 +87,9 @@ void display_progress_word(std::string word)
     std::cout << std::endl;
 }
 
-void add_letter(std::string& progress_word, std::string input_letter, std::vector<int> positions)
+void add_letter(std::string& progress_word, std::string input_letter, std::vector<int> letter_positions)
 {
-    for (auto& i : positions) {
+    for (auto& i : letter_positions) {
         progress_word[i] = input_letter[0];
     }
 }

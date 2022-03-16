@@ -74,9 +74,9 @@
 
 #### :white_check_mark: Guess the number
 
-#### :keyboard: Hangman
+#### :white_check_mark: Hangman
 
-#### :x: Adding a menu
+#### :white_check_mark: Adding a menu
 
 #### :x: Noughts and Crosses
 

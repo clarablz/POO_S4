@@ -21,6 +21,10 @@
 
 #### :heavy_check_mark: [Consistency in style](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/consistency-in-style/) 
 
+#### :heavy_check_mark: [Use library](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/use-libraries/)
+
+#### :heavy_check_mark: [Range-based loop](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/range-based-for-loop/)
+
 ---
 
 ### Usefull notes
@@ -55,6 +59,15 @@
 #### :heavy_check_mark: [Split problems into small pieces](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/split-problems-in-small-pieces/) 
 
 #### :heavy_check_mark: [Composition and inheritance](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/composition-over-inheritance/) 
+
+---
+
+## LEVEL 3 :sun_with_face: :sun_with_face: :sun_with_face:
+
+#### :heavy_check_mark: [std::vector](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/vector/)
+
+#### :heavy_check_mark: [Minimize dependencies](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/minimize-dependencies/)
+#### :heavy_check_mark: [Strong types](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/strong-types/)
 
 ---
 

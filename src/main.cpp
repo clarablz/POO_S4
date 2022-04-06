@@ -4,5 +4,5 @@
 
 int main()
 {
-    game_launcher();
+    create_window();
 }

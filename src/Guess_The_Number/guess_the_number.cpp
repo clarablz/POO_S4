@@ -9,7 +9,7 @@ void play_guess_the_number()
     int  mystery_number = rand<int>(0, 100);
     bool is_found       = false;
     while (!is_found) {
-        int user_number = get_input_from_user<int>("Enter a number : ");
+        auto user_number = get_input_from_user<int>("Enter a number : ");
         if (user_number == mystery_number) {
             is_found = true;
         }

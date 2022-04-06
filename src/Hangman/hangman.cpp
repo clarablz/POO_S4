@@ -18,7 +18,7 @@ void play_hangman()
     while (player.is_alive() && !has_won(mystery_word, progress_word)) {
         player.display_life();
         display_progress_word(progress_word);
-        std::string input_letter = get_input_from_user<std::string>("Enter a letter : ");
+        auto input_letter = get_input_from_user<std::string>("Enter a letter : ");
         if (is_letter_in_word(input_letter, mystery_word, letter_positions)) {
             add_letter(progress_word, input_letter, letter_positions);
             letter_positions.clear();

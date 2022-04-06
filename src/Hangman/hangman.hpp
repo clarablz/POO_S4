@@ -6,7 +6,7 @@ const std::string pick_a_random_word();
 
 class Player {
 private:
-    bool _isAlive;
+    bool _is_alive;
     int  _number_of_lives;
 
 public:

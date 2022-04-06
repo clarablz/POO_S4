@@ -29,7 +29,7 @@ void game_launcher()
 
     while (!quit) {
         show_menu();
-        char command = get_input_from_user<char>("Select your game : ");
+        auto command = get_input_from_user<char>("Select your game : ");
         switch (command) {
         case '1':
             play_guess_the_number();

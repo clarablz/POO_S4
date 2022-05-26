@@ -96,12 +96,28 @@ void draw_noughts_and_crosses(const Board<size>& board, p6::Context& ctx)
     }
 }
 
+void switch_player(Noughts_and_Crosses_Player& player)
+{
+    (player == Noughts_and_Crosses_Player::Crosses) ? player = Noughts_and_Crosses_Player::Noughts : player = Noughts_and_Crosses_Player::Crosses;
+}
+
 void create_window()
 {
-    auto board    = Board<3>{};
-    board[{0, 1}] = Noughts_and_Crosses_Player::Noughts;
-    board[{1, 2}] = Noughts_and_Crosses_Player::Crosses;
-    auto ctx      = p6::Context{{800, 800, "Noughts and Crosses"}};
+    auto board                     = Board<3>{};
+    board[{0, 1}]                  = Noughts_and_Crosses_Player::Noughts;
+    board[{1, 2}]                  = Noughts_and_Crosses_Player::Crosses;
+    auto                       ctx = p6::Context{{800, 800, "Noughts and Crosses"}};
+    Noughts_and_Crosses_Player player;
+
+    ctx.mouse_pressed = [&](p6::MouseButton event) {
+        CellIndex index;
+        index._x = event.position.x;
+        index._y = event.position.y;
+        if (!board[index].has_value()) {
+            board[{index._x, index._y}] = player;
+            switch_player(player);
+        }
+    };
 
     ctx.update = [&]() {
         ctx.background({0.9f, 0.9f, 0.9});

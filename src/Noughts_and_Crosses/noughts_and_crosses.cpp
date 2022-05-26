@@ -1,4 +1,5 @@
 #include "Noughts_and_Crosses/noughts_and_crosses.hpp"
+#include <iostream>
 
 float cell_radius(int board_size)
 {
@@ -111,18 +112,16 @@ void switch_player(Noughts_and_Crosses_Player& player)
 
 void create_window()
 {
-    auto board                     = Board<3>{};
-    board[{0, 1}]                  = Noughts_and_Crosses_Player::Noughts;
-    board[{1, 2}]                  = Noughts_and_Crosses_Player::Crosses;
-    auto                       ctx = p6::Context{{800, 800, "Noughts and Crosses"}};
+    auto                       board = Board<3>{};
+    auto                       ctx   = p6::Context{{800, 800, "Noughts and Crosses"}};
     Noughts_and_Crosses_Player player;
-
     ctx.mouse_pressed = [&](p6::MouseButton event) {
         CellIndex index = convert_position_to_cell(event.position, 3);
 
-        if (!board[index].has_value()) {
+        if (!board[index].has_value() && !board.is_full()) {
             board[{index._x, index._y}] = player;
             switch_player(player);
+            board.increment_number_of_filled_cells();
         }
     };
 
@@ -134,7 +133,7 @@ void create_window()
         draw_board(3, ctx);
         draw_noughts_and_crosses(board, ctx);
         const auto hovered_cell = cell_hovered_by(ctx.mouse(), 3);
-        if (hovered_cell.has_value()) {
+        if (hovered_cell.has_value() && !board.is_full()) {
             if (player == Noughts_and_Crosses_Player::Crosses) {
                 draw_cross(*hovered_cell, 3, ctx);
             }

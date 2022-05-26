@@ -14,7 +14,7 @@ template<int size>
 class Board {
 public:
     Board()
-        : _size(size) {}
+        : _size(size), _number_of_filled_cells(0) {}
     std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index)
     {
         return _cells[index._x][index._y];
@@ -25,11 +25,16 @@ public:
         return _cells[index._x][index._y];
     }
 
-    int get_size() const { return _size; }
+    int  get_size() const { return _size; }
+    bool is_board_full() const;
+    int  get_number_of_filled_cells() const { return _number_of_filled_cells; }
+    void increment_number_of_filled_cells() { _number_of_filled_cells++; }
+    bool is_full() const { return (_number_of_filled_cells == 9) ? true : false; }
 
 private:
     std::array<std::array<std::optional<Noughts_and_Crosses_Player>, size>, size> _cells;
     int                                                                           _size;
+    int                                                                           _number_of_filled_cells;
 };
 
 float                    cell_radius(int board_size);

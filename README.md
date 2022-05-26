@@ -85,8 +85,6 @@
 #### :heavy_check_mark: [Dependency Injection](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/dependency-injection/)
 #### :heavy_check_mark: [Git Pull Request](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/git-pull-request/)
 #### :heavy_check_mark: [Advanced Git features](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/advanced-git-features/)
-#### :heavy_check_mark: [Range-based for loop](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/range-based-for-loop/)
-#### :heavy_check_mark: [Range-based for loop](https://julesfouchy.github.io/Learn--Clean-Code-With-Cpp/lessons/range-based-for-loop/)
 
 ---
 

@@ -16,6 +16,14 @@ glm::vec2 center_cell(CellIndex index, int board_size)
     return cell_bottom_left_corner(index, board_size) + cell_radius(board_size);
 }
 
+CellIndex convert_position_to_cell(const glm::vec2 position, int board_size)
+{
+    CellIndex index;
+    index._x = static_cast<int>(p6::map(position.x, -1.f, 1.f, 0.f, static_cast<float>(board_size)));
+    index._y = static_cast<int>(p6::map(position.y, -1.f, 1.f, 0.f, static_cast<float>(board_size)));
+    return index;
+}
+
 void draw_cell(CellIndex index, int board_size, p6::Context& ctx)
 {
     ctx.square(p6::BottomLeftCorner{cell_bottom_left_corner(index, board_size)},
@@ -110,9 +118,8 @@ void create_window()
     Noughts_and_Crosses_Player player;
 
     ctx.mouse_pressed = [&](p6::MouseButton event) {
-        CellIndex index;
-        index._x = event.position.x;
-        index._y = event.position.y;
+        CellIndex index = convert_position_to_cell(event.position, 3);
+
         if (!board[index].has_value()) {
             board[{index._x, index._y}] = player;
             switch_player(player);

@@ -110,6 +110,24 @@ void switch_player(Noughts_and_Crosses_Player& player)
     (player == Noughts_and_Crosses_Player::Crosses) ? player = Noughts_and_Crosses_Player::Noughts : player = Noughts_and_Crosses_Player::Crosses;
 }
 
+bool check_if_cells_are_aligned(CellIndex cell_1, CellIndex cell_2, CellIndex cell_3)
+{
+    // Vertical check
+    if (cell_1._x == cell_2._y && cell_1._x == cell_3._y) {
+        return true;
+    }
+    // Horizontal check
+    if (cell_1._y == cell_2._y && cell_1._x == cell_3._y) {
+        return true;
+    }
+    // Diagonal check
+    if (cell_1._x == cell_1._y && cell_2._x == cell_2._y && cell_3._x == cell_3._y && cell_1._x + cell_2._x + cell_3._x == 2) {
+        return true;
+    }
+
+    return false;
+}
+
 void create_window()
 {
     auto                       board = Board<3>{};

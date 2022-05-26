@@ -135,7 +135,12 @@ void create_window()
         draw_noughts_and_crosses(board, ctx);
         const auto hovered_cell = cell_hovered_by(ctx.mouse(), 3);
         if (hovered_cell.has_value()) {
-            draw_cross(*hovered_cell, 3, ctx);
+            if (player == Noughts_and_Crosses_Player::Crosses) {
+                draw_cross(*hovered_cell, 3, ctx);
+            }
+            else {
+                draw_circle(*hovered_cell, 3, ctx);
+            }
         }
     };
     ctx.start();

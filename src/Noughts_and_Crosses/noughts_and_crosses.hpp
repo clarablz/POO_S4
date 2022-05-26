@@ -13,6 +13,8 @@ enum class Noughts_and_Crosses_Player {
 template<int size>
 class Board {
 public:
+    Board()
+        : _size(size) {}
     std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index)
     {
         return _state[index._x + _size * index._y];

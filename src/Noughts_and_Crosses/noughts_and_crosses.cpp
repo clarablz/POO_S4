@@ -67,6 +67,29 @@ std::optional<CellIndex> cell_hovered_by(glm::vec2 position, int board_size)
     }
 }
 
+void draw_Player_shape(CellIndex index, int board_size, p6::Context& ctx, Noughts_and_Crosses_Player shape)
+{
+    if (shape == Noughts_and_Crosses_Player::Noughts) {
+        draw_circle(index, board_size, ctx);
+    }
+    else if (shape == Noughts_and_Crosses_Player::Crosses) {
+        draw_cross(index, board_size, ctx);
+    }
+}
+
+template<int size>
+void draw_noughts_or_crosses(const Board<size>& board, p6::Context& ctx, Noughts_and_Crosses_Player player)
+{
+    for (int x = 0; x < size; ++x) {
+        for (int y = 0; y < size; ++y) {
+            const auto cell = board[{x, y}];
+            if (cell.has_value()) {
+                draw_Player_shape({x, y}, size, ctx, *cell);
+            }
+        }
+    }
+}
+
 void create_window()
 {
     auto                 ctx        = p6::Context{{800, 800, "Hello p6"}};

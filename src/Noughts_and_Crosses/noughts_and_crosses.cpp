@@ -24,6 +24,9 @@ void draw_cell(CellIndex index, int board_size, p6::Context& ctx)
 
 void draw_circle(CellIndex index, int board_size, p6::Context& ctx)
 {
+    ctx.stroke_weight = 0.1f;
+    ctx.stroke        = {0.75f, 0.88f, 0.46f, 1.f};
+    ctx.fill          = {0.75f, 0.88f, 0.46f, 0.f};
     ctx.circle(p6::Center{center_cell(index, board_size)},
                p6::Radius{0.9f * cell_radius(board_size)});
 }
@@ -33,6 +36,8 @@ void draw_cross(CellIndex index, int board_size, p6::Context& ctx)
     const auto center   = p6::Center{center_cell(index, board_size)};
     const auto radii    = p6::Radii{glm::vec2{1.f, 0.2f} * cell_radius(board_size)};
     const auto rotation = p6::Rotation{0.125_turn};
+    ctx.stroke_weight   = 0.f;
+    ctx.fill            = {0.7f, 0.56f, 0.9f, 1.f};
     ctx.rectangle(center, radii, rotation);
     ctx.rectangle(center, radii, -rotation);
 }
@@ -66,25 +71,26 @@ std::optional<CellIndex> cell_hovered_by(glm::vec2 position, int board_size)
         return std::nullopt;
     }
 }
-
-void draw_Player_shape(CellIndex index, int board_size, p6::Context& ctx, Noughts_and_Crosses_Player shape)
+template<int size>
+void draw_Player_shape(CellIndex index, int board_size, p6::Context& ctx, const Board<size>& board)
 {
-    if (shape == Noughts_and_Crosses_Player::Noughts) {
+    const auto cell = board[{index._x, index._y}];
+    if (*cell == Noughts_and_Crosses_Player::Noughts) {
         draw_circle(index, board_size, ctx);
     }
-    else if (shape == Noughts_and_Crosses_Player::Crosses) {
+    else if (*cell == Noughts_and_Crosses_Player::Crosses) {
         draw_cross(index, board_size, ctx);
     }
 }
 
 template<int size>
-void draw_noughts_or_crosses(const Board<size>& board, p6::Context& ctx, Noughts_and_Crosses_Player player)
+void draw_noughts_and_crosses(const Board<size>& board, p6::Context& ctx)
 {
     for (int x = 0; x < size; ++x) {
         for (int y = 0; y < size; ++y) {
             const auto cell = board[{x, y}];
             if (cell.has_value()) {
-                draw_Player_shape({x, y}, size, ctx, *cell);
+                draw_Player_shape({x, y}, size, ctx, board);
             }
         }
     }
@@ -92,19 +98,21 @@ void draw_noughts_or_crosses(const Board<size>& board, p6::Context& ctx, Noughts
 
 void create_window()
 {
-    auto                 ctx        = p6::Context{{800, 800, "Hello p6"}};
-    static constexpr int board_size = 3;
-    ctx.update                      = [&]() {
+    auto board    = Board<3>{};
+    board[{0, 1}] = Noughts_and_Crosses_Player::Noughts;
+    board[{1, 2}] = Noughts_and_Crosses_Player::Crosses;
+    auto ctx      = p6::Context{{800, 800, "Noughts and Crosses"}};
+
+    ctx.update = [&]() {
         ctx.background({0.9f, 0.9f, 0.9});
         ctx.stroke_weight = 0.01f;
         ctx.stroke        = {1.f, 1.f, 1.f, 1.f};
         ctx.fill          = {0.f, 0.f, 0.f, 0.f};
-        draw_board(board_size, ctx);
-        const auto hovered_cell = cell_hovered_by(ctx.mouse(), board_size);
+        draw_board(3, ctx);
+        draw_noughts_and_crosses(board, ctx);
+        const auto hovered_cell = cell_hovered_by(ctx.mouse(), 3);
         if (hovered_cell.has_value()) {
-            ctx.stroke_weight = 0.f;
-            ctx.fill          = {0.3f, 0.3f, 0.3f, 1.f};
-            draw_cross(*hovered_cell, board_size, ctx);
+            draw_cross(*hovered_cell, 3, ctx);
         }
     };
     ctx.start();

@@ -17,19 +17,19 @@ public:
         : _size(size) {}
     std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index)
     {
-        return _state[index._x + _size * index._y];
+        return _cells[index._x][index._y];
     }
 
     const std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index) const
     {
-        return _state[index._x + _size * index._y];
+        return _cells[index._x][index._y];
     }
 
     int get_size() const { return _size; }
 
 private:
-    std::vector<std::optional<Noughts_and_Crosses_Player>> _state;
-    int                                                    _size;
+    std::array<std::array<std::optional<Noughts_and_Crosses_Player>, size>, size> _cells;
+    int                                                                           _size;
 };
 
 float                    cell_radius(int board_size);

@@ -1,8 +1,33 @@
 #include <p6/p6.h>
 
 struct CellIndex {
-    int x;
-    int y;
+    int _x;
+    int _y;
+};
+
+enum class Noughts_and_Crosses_Player {
+    Noughts,
+    Crosses,
+};
+
+template<int size>
+class Board {
+public:
+    std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index)
+    {
+        return _state[index._x + _size * index._y];
+    }
+
+    const std::optional<Noughts_and_Crosses_Player>& operator[](CellIndex index) const
+    {
+        return _state[index._x + _size * index._y];
+    }
+
+    int get_size() const { return _size; }
+
+private:
+    std::vector<std::optional<Noughts_and_Crosses_Player>> _state;
+    int                                                    _size;
 };
 
 float                    cell_radius(int board_size);

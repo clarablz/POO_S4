@@ -7,7 +7,7 @@ float cell_radius(int board_size)
 
 glm::vec2 cell_bottom_left_corner(CellIndex index, int board_size)
 {
-    const auto idx = glm::vec2{index.x, index.y};
+    const auto idx = glm::vec2{index._x, index._y};
     return p6::map(idx, glm::vec2{0.f}, glm::vec2{static_cast<float>(board_size)}, glm::vec2{-1.f}, glm::vec2{1.f});
 }
 
@@ -58,8 +58,8 @@ std::optional<CellIndex> cell_hovered_by(glm::vec2 position, int board_size)
     const auto index = CellIndex{
         static_cast<int>(std::floor(pos.x)),
         static_cast<int>(std::floor(pos.y))};
-    if (index.x >= 0 && index.x < board_size &&
-        index.y >= 0 && index.y < board_size) {
+    if (index._x >= 0 && index._x < board_size &&
+        index._y >= 0 && index._y < board_size) {
         return std::make_optional(index);
     }
     else {

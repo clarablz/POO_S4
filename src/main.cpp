@@ -4,5 +4,5 @@
 
 int main()
 {
-    create_window();
+    play_noughts_and_crosses();
 }

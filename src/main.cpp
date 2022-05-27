@@ -4,5 +4,5 @@
 
 int main()
 {
-    play_noughts_and_crosses();
+    game_launcher();
 }

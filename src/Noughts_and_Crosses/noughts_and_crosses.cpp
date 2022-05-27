@@ -182,38 +182,54 @@ void display_end_message(Board<size> board)
     }
 }
 
-void create_window()
+void window_settings(p6::Context& ctx)
+{
+    ctx.background({0.9f, 0.9f, 0.9});
+    ctx.stroke_weight = 0.01f;
+    ctx.stroke        = {1.f, 1.f, 1.f, 1.f};
+    ctx.fill          = {0.f, 0.f, 0.f, 0.f};
+}
+
+template<int size>
+void place_shape(Board<size>& board, CellIndex cell, Noughts_and_Crosses_Player& player)
+{
+    if (!board[cell].has_value() && !board.is_full()) {
+        board[{cell._x, cell._y}] = player;
+        switch_player(player);
+        board.increment_number_of_filled_cells();
+    }
+}
+template<int size>
+void draw_hovered_cell_shape(Board<size> board, std::optional<CellIndex> hovered_cell, p6::Context& ctx, Noughts_and_Crosses_Player player)
+{
+    if (hovered_cell.has_value() && !board.is_full()) {
+        if (player == Noughts_and_Crosses_Player::Crosses) {
+            draw_cross(*hovered_cell, size, ctx);
+        }
+        else {
+            draw_circle(*hovered_cell, size, ctx);
+        }
+    }
+}
+
+void play_noughts_and_crosses()
 {
     const int                  board_size = 3;
     auto                       board      = Board<board_size>{};
     auto                       ctx        = p6::Context{{800, 800, "Noughts and Crosses"}};
     Noughts_and_Crosses_Player player;
-    ctx.mouse_pressed = [&](p6::MouseButton event) {
-        CellIndex index = convert_position_to_cell(event.position, board_size);
 
-        if (!board[index].has_value() && !board.is_full()) {
-            board[{index._x, index._y}] = player;
-            switch_player(player);
-            board.increment_number_of_filled_cells();
-        }
+    ctx.mouse_pressed = [&](p6::MouseButton event) {
+        CellIndex cell = convert_position_to_cell(event.position, board_size);
+        place_shape(board, cell, player);
     };
 
     ctx.update = [&]() {
-        ctx.background({0.9f, 0.9f, 0.9});
-        ctx.stroke_weight = 0.01f;
-        ctx.stroke        = {1.f, 1.f, 1.f, 1.f};
-        ctx.fill          = {0.f, 0.f, 0.f, 0.f};
+        window_settings(ctx);
         draw_board(board_size, ctx);
         draw_noughts_and_crosses(board, ctx);
         const auto hovered_cell = cell_hovered_by(ctx.mouse(), board_size);
-        if (hovered_cell.has_value() && !board.is_full()) {
-            if (player == Noughts_and_Crosses_Player::Crosses) {
-                draw_cross(*hovered_cell, board_size, ctx);
-            }
-            else {
-                draw_circle(*hovered_cell, board_size, ctx);
-            }
-        }
+        draw_hovered_cell_shape(board, hovered_cell, ctx, player);
         if (is_game_finished(board)) {
             ctx.stop();
             display_end_message(board);
@@ -221,9 +237,4 @@ void create_window()
     };
 
     ctx.start();
-}
-
-void play_noughts_and_crosses()
-{
-    create_window();
 }

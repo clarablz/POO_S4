@@ -6,6 +6,7 @@ void show_menu()
     std::cout << "Which game would you like to play?" << std::endl;
     std::cout << "1 : Guess the number" << std::endl;
     std::cout << "2 : Hangman" << std::endl;
+    std::cout << "3 : Noughts and crosses" << std::endl;
     std::cout << "q : Quit" << std::endl;
 }
 
@@ -37,6 +38,10 @@ void game_launcher()
             break;
         case '2':
             play_hangman();
+            offer_to_play_again(quit);
+            break;
+        case '3':
+            play_noughts_and_crosses();
             offer_to_play_again(quit);
             break;
         case 'q':

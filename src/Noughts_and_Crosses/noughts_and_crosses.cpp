@@ -217,7 +217,7 @@ void play_noughts_and_crosses()
     const int                  board_size = 3;
     auto                       board      = Board<board_size>{};
     auto                       ctx        = p6::Context{{800, 800, "Noughts and Crosses"}};
-    Noughts_and_Crosses_Player player;
+    Noughts_and_Crosses_Player player     = Noughts_and_Crosses_Player::Noughts;
 
     ctx.mouse_pressed = [&](p6::MouseButton event) {
         CellIndex cell = convert_position_to_cell(event.position, board_size);

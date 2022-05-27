@@ -108,7 +108,7 @@
 
 #### :white_check_mark: Adding a menu
 
-#### :x: Noughts and Crosses
+#### :white_check_mark: Noughts and Crosses
 
 #### :x: Connect 4
 

@@ -126,23 +126,17 @@ std::optional<Noughts_and_Crosses_Player> check_line_win(Board<3> board, std::op
 std::optional<Noughts_and_Crosses_Player> check_winner(Board<3> board)
 {
     // Horizontal lines
-
-    if ((check_line_win(board, std::make_optional(CellIndex{0, 0}), std::make_optional(CellIndex{1, 0}), std::make_optional(CellIndex{2, 0})) != std::nullopt))
-        return check_line_win(board, CellIndex{0, 0}, CellIndex{1, 0}, CellIndex{2, 0});
-
-    if ((check_line_win(board, CellIndex{0, 1}, CellIndex{1, 1}, CellIndex{2, 1})) != std::nullopt)
-        return check_line_win(board, CellIndex{0, 1}, CellIndex{1, 1}, CellIndex{2, 1});
-    if ((check_line_win(board, CellIndex{0, 2}, CellIndex{1, 2}, CellIndex{2, 2})) != std::nullopt)
-        return check_line_win(board, CellIndex{0, 2}, CellIndex{1, 2}, CellIndex{2, 2});
+    for (int y = 0; y < 3; y++) {
+        if ((check_line_win(board, std::make_optional(CellIndex{0, y}), std::make_optional(CellIndex{1, y}), std::make_optional(CellIndex{2, y})) != std::nullopt))
+            return check_line_win(board, CellIndex{0, y}, CellIndex{1, y}, CellIndex{2, y});
+    }
 
     // Vertical lines.
 
-    if ((check_line_win(board, CellIndex{0, 0}, CellIndex{0, 1}, CellIndex{0, 2})) != std::nullopt)
-        return check_line_win(board, CellIndex{0, 0}, CellIndex{0, 1}, CellIndex{0, 2});
-    if ((check_line_win(board, CellIndex{1, 0}, CellIndex{1, 1}, CellIndex{1, 2})) != std::nullopt)
-        return check_line_win(board, CellIndex{1, 0}, CellIndex{1, 1}, CellIndex{1, 2});
-    if ((check_line_win(board, CellIndex{2, 0}, CellIndex{2, 1}, CellIndex{2, 2})) != std::nullopt)
-        return check_line_win(board, CellIndex{2, 0}, CellIndex{2, 1}, CellIndex{2, 2});
+    for (int x = 0; x < 3; x++) {
+        if ((check_line_win(board, std::make_optional(CellIndex{x, 0}), std::make_optional(CellIndex{x, 1}), std::make_optional(CellIndex{x, 2})) != std::nullopt))
+            return check_line_win(board, CellIndex{x, 0}, CellIndex{x, 1}, CellIndex{x, 2});
+    }
 
     // Diagonal lines.
 

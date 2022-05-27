@@ -162,6 +162,29 @@ bool is_game_finished(Board<3> board)
     return false;
 }
 
+void display_winner_message(Board<3> board)
+{
+    if (check_winner(board) == Noughts_and_Crosses_Player::Noughts)
+        std::cout << "Youpi! Noughts won !" << std::endl;
+    else
+        std::cout << "Youpi! Crosses won !" << std::endl;
+}
+
+void display_tie_message()
+{
+    std::cout << "Oh..no winner this time!" << std::endl;
+}
+
+void display_end_message(Board<3> board)
+{
+    if (check_winner(board) != std::nullopt) {
+        display_winner_message(board);
+    }
+    else {
+        display_tie_message();
+    }
+}
+
 void create_window()
 {
     auto                       board = Board<3>{};
@@ -195,6 +218,7 @@ void create_window()
         }
         if (is_game_finished(board)) {
             ctx.stop();
+            display_end_message(board);
         }
     };
 

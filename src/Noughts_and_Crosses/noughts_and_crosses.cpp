@@ -31,13 +31,24 @@ void draw_cell(CellIndex index, int board_size, p6::Context& ctx)
                p6::Radius{cell_radius(board_size)});
 }
 
-void draw_circle(CellIndex index, int board_size, p6::Context& ctx)
+void set_circle_parameters(p6::Context& ctx)
 {
     ctx.stroke_weight = 0.1f;
     ctx.stroke        = {0.75f, 0.88f, 0.46f, 1.f};
     ctx.fill          = {0.75f, 0.88f, 0.46f, 0.f};
+}
+
+void draw_circle(CellIndex index, int board_size, p6::Context& ctx)
+{
+    set_circle_parameters(ctx);
     ctx.circle(p6::Center{center_cell(index, board_size)},
                p6::Radius{0.9f * cell_radius(board_size)});
+}
+
+void set_cross_parameters(p6::Context& ctx)
+{
+    ctx.stroke_weight = 0.f;
+    ctx.fill          = {0.7f, 0.56f, 0.9f, 1.f};
 }
 
 void draw_cross(CellIndex index, int board_size, p6::Context& ctx)
@@ -45,8 +56,7 @@ void draw_cross(CellIndex index, int board_size, p6::Context& ctx)
     const auto center   = p6::Center{center_cell(index, board_size)};
     const auto radii    = p6::Radii{glm::vec2{1.f, 0.2f} * cell_radius(board_size)};
     const auto rotation = p6::Rotation{0.125_turn};
-    ctx.stroke_weight   = 0.f;
-    ctx.fill            = {0.7f, 0.56f, 0.9f, 1.f};
+    set_cross_parameters(ctx);
     ctx.rectangle(center, radii, rotation);
     ctx.rectangle(center, radii, -rotation);
 }
@@ -161,14 +171,14 @@ template<int size>
 void display_winner_message(Board<size> board)
 {
     if (check_winner(board) == Noughts_and_Crosses_Player::Noughts)
-        std::cout << "Youpi! Noughts won !" << std::endl;
+        std::cout << "\nYoupi! Noughts won!" << std::endl;
     else
-        std::cout << "Youpi! Crosses won !" << std::endl;
+        std::cout << "\nYoupi! Crosses won!" << std::endl;
 }
 
 void display_tie_message()
 {
-    std::cout << "Oh..no winner this time!" << std::endl;
+    std::cout << "\nOh..no winner this time!" << std::endl;
 }
 
 template<int size>

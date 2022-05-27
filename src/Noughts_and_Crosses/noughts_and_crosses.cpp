@@ -110,21 +110,55 @@ void switch_player(Noughts_and_Crosses_Player& player)
     (player == Noughts_and_Crosses_Player::Crosses) ? player = Noughts_and_Crosses_Player::Noughts : player = Noughts_and_Crosses_Player::Crosses;
 }
 
-bool check_if_cells_are_aligned(CellIndex cell_1, CellIndex cell_2, CellIndex cell_3)
+std::optional<Noughts_and_Crosses_Player> check_line_win(Board<3> board, std::optional<CellIndex> cell_1, std::optional<CellIndex> cell_2, std::optional<CellIndex> cell_3)
 {
-    // Vertical check
-    if (cell_1._x == cell_2._y && cell_1._x == cell_3._y) {
-        return true;
-    }
-    // Horizontal check
-    if (cell_1._y == cell_2._y && cell_1._x == cell_3._y) {
-        return true;
-    }
-    // Diagonal check
-    if (cell_1._x == cell_1._y && cell_2._x == cell_2._y && cell_3._x == cell_3._y && cell_1._x + cell_2._x + cell_3._x == 2) {
-        return true;
-    }
+    if (!cell_1.has_value())
+        return std::nullopt;
 
+    if (board[*cell_1] != board[*cell_2])
+        return std::nullopt;
+    if (board[*cell_1] != board[*cell_3])
+        return std::nullopt;
+
+    return board[*cell_1];
+}
+
+std::optional<Noughts_and_Crosses_Player> check_winner(Board<3> board)
+{
+    // Horizontal lines
+
+    if ((check_line_win(board, std::make_optional(CellIndex{0, 0}), std::make_optional(CellIndex{1, 0}), std::make_optional(CellIndex{2, 0})) != std::nullopt))
+        return check_line_win(board, CellIndex{0, 0}, CellIndex{1, 0}, CellIndex{2, 0});
+
+    if ((check_line_win(board, CellIndex{0, 1}, CellIndex{1, 1}, CellIndex{2, 1})) != std::nullopt)
+        return check_line_win(board, CellIndex{0, 1}, CellIndex{1, 1}, CellIndex{2, 1});
+    if ((check_line_win(board, CellIndex{0, 2}, CellIndex{1, 2}, CellIndex{2, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{0, 2}, CellIndex{1, 2}, CellIndex{2, 2});
+
+    // Vertical lines.
+
+    if ((check_line_win(board, CellIndex{0, 0}, CellIndex{0, 1}, CellIndex{0, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{0, 0}, CellIndex{0, 1}, CellIndex{0, 2});
+    if ((check_line_win(board, CellIndex{1, 0}, CellIndex{1, 1}, CellIndex{1, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{1, 0}, CellIndex{1, 1}, CellIndex{1, 2});
+    if ((check_line_win(board, CellIndex{2, 0}, CellIndex{2, 1}, CellIndex{2, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{2, 0}, CellIndex{2, 1}, CellIndex{2, 2});
+
+    // Diagonal lines.
+
+    if ((check_line_win(board, CellIndex{0, 0}, CellIndex{1, 1}, CellIndex{2, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{0, 0}, CellIndex{1, 1}, CellIndex{2, 2});
+    if ((check_line_win(board, CellIndex{2, 0}, CellIndex{1, 1}, CellIndex{0, 2})) != std::nullopt)
+        return check_line_win(board, CellIndex{2, 0}, CellIndex{1, 1}, CellIndex{0, 2});
+
+    return std::nullopt;
+}
+
+bool is_game_finished(Board<3> board)
+{
+    if (check_winner(board) != std::nullopt || board.is_full()) {
+        return true;
+    }
     return false;
 }
 
@@ -159,7 +193,11 @@ void create_window()
                 draw_circle(*hovered_cell, 3, ctx);
             }
         }
+        if (is_game_finished(board)) {
+            ctx.stop();
+        }
     };
+
     ctx.start();
 }
 

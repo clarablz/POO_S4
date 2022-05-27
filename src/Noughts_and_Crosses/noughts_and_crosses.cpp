@@ -81,14 +81,14 @@ std::optional<CellIndex> cell_hovered_by(glm::vec2 position, int board_size)
     }
 }
 template<int size>
-void draw_Player_shape(CellIndex index, int board_size, p6::Context& ctx, const Board<size>& board)
+void draw_Player_shape(CellIndex index, p6::Context& ctx, const Board<size>& board)
 {
     const auto cell = board[{index._x, index._y}];
     if (*cell == Noughts_and_Crosses_Player::Noughts) {
-        draw_circle(index, board_size, ctx);
+        draw_circle(index, size, ctx);
     }
     else if (*cell == Noughts_and_Crosses_Player::Crosses) {
-        draw_cross(index, board_size, ctx);
+        draw_cross(index, size, ctx);
     }
 }
 
@@ -99,7 +99,7 @@ void draw_noughts_and_crosses(const Board<size>& board, p6::Context& ctx)
         for (int y = 0; y < size; ++y) {
             const auto cell = board[{x, y}];
             if (cell.has_value()) {
-                draw_Player_shape({x, y}, size, ctx, board);
+                draw_Player_shape({x, y}, ctx, board);
             }
         }
     }
@@ -110,7 +110,8 @@ void switch_player(Noughts_and_Crosses_Player& player)
     (player == Noughts_and_Crosses_Player::Crosses) ? player = Noughts_and_Crosses_Player::Noughts : player = Noughts_and_Crosses_Player::Crosses;
 }
 
-std::optional<Noughts_and_Crosses_Player> check_line_win(Board<3> board, std::optional<CellIndex> cell_1, std::optional<CellIndex> cell_2, std::optional<CellIndex> cell_3)
+template<int size>
+std::optional<Noughts_and_Crosses_Player> check_line_win(Board<size> board, std::optional<CellIndex> cell_1, std::optional<CellIndex> cell_2, std::optional<CellIndex> cell_3)
 {
     if (!cell_1.has_value())
         return std::nullopt;
@@ -123,23 +124,22 @@ std::optional<Noughts_and_Crosses_Player> check_line_win(Board<3> board, std::op
     return board[*cell_1];
 }
 
-std::optional<Noughts_and_Crosses_Player> check_winner(Board<3> board)
+template<int size>
+std::optional<Noughts_and_Crosses_Player> check_winner(Board<size> board)
 {
     // Horizontal lines
-    for (int y = 0; y < 3; y++) {
+    for (int y = 0; y < size; y++) {
         if ((check_line_win(board, std::make_optional(CellIndex{0, y}), std::make_optional(CellIndex{1, y}), std::make_optional(CellIndex{2, y})) != std::nullopt))
             return check_line_win(board, CellIndex{0, y}, CellIndex{1, y}, CellIndex{2, y});
     }
 
     // Vertical lines.
-
-    for (int x = 0; x < 3; x++) {
+    for (int x = 0; x < size; x++) {
         if ((check_line_win(board, std::make_optional(CellIndex{x, 0}), std::make_optional(CellIndex{x, 1}), std::make_optional(CellIndex{x, 2})) != std::nullopt))
             return check_line_win(board, CellIndex{x, 0}, CellIndex{x, 1}, CellIndex{x, 2});
     }
 
     // Diagonal lines.
-
     if ((check_line_win(board, CellIndex{0, 0}, CellIndex{1, 1}, CellIndex{2, 2})) != std::nullopt)
         return check_line_win(board, CellIndex{0, 0}, CellIndex{1, 1}, CellIndex{2, 2});
     if ((check_line_win(board, CellIndex{2, 0}, CellIndex{1, 1}, CellIndex{0, 2})) != std::nullopt)
@@ -148,7 +148,8 @@ std::optional<Noughts_and_Crosses_Player> check_winner(Board<3> board)
     return std::nullopt;
 }
 
-bool is_game_finished(Board<3> board)
+template<int size>
+bool is_game_finished(Board<size> board)
 {
     if (check_winner(board) != std::nullopt || board.is_full()) {
         return true;
@@ -156,7 +157,8 @@ bool is_game_finished(Board<3> board)
     return false;
 }
 
-void display_winner_message(Board<3> board)
+template<int size>
+void display_winner_message(Board<size> board)
 {
     if (check_winner(board) == Noughts_and_Crosses_Player::Noughts)
         std::cout << "Youpi! Noughts won !" << std::endl;
@@ -169,7 +171,8 @@ void display_tie_message()
     std::cout << "Oh..no winner this time!" << std::endl;
 }
 
-void display_end_message(Board<3> board)
+template<int size>
+void display_end_message(Board<size> board)
 {
     if (check_winner(board) != std::nullopt) {
         display_winner_message(board);
@@ -181,11 +184,12 @@ void display_end_message(Board<3> board)
 
 void create_window()
 {
-    auto                       board = Board<3>{};
-    auto                       ctx   = p6::Context{{800, 800, "Noughts and Crosses"}};
+    const int                  board_size = 3;
+    auto                       board      = Board<board_size>{};
+    auto                       ctx        = p6::Context{{800, 800, "Noughts and Crosses"}};
     Noughts_and_Crosses_Player player;
     ctx.mouse_pressed = [&](p6::MouseButton event) {
-        CellIndex index = convert_position_to_cell(event.position, 3);
+        CellIndex index = convert_position_to_cell(event.position, board_size);
 
         if (!board[index].has_value() && !board.is_full()) {
             board[{index._x, index._y}] = player;
@@ -199,15 +203,15 @@ void create_window()
         ctx.stroke_weight = 0.01f;
         ctx.stroke        = {1.f, 1.f, 1.f, 1.f};
         ctx.fill          = {0.f, 0.f, 0.f, 0.f};
-        draw_board(3, ctx);
+        draw_board(board_size, ctx);
         draw_noughts_and_crosses(board, ctx);
-        const auto hovered_cell = cell_hovered_by(ctx.mouse(), 3);
+        const auto hovered_cell = cell_hovered_by(ctx.mouse(), board_size);
         if (hovered_cell.has_value() && !board.is_full()) {
             if (player == Noughts_and_Crosses_Player::Crosses) {
-                draw_cross(*hovered_cell, 3, ctx);
+                draw_cross(*hovered_cell, board_size, ctx);
             }
             else {
-                draw_circle(*hovered_cell, 3, ctx);
+                draw_circle(*hovered_cell, board_size, ctx);
             }
         }
         if (is_game_finished(board)) {
